@@ -1,3 +1,11 @@
+Crater Lake:
+  url: CraterLake
+  date: "2026-04-28"
+  style: fullscreen
+  cover: CraterLake/R0005506.webp
+  location:
+    - 42.952104931021225
+    - -122.12794016618432
 多伦多:
   url: toronto-the-city
   date: "2025-10-01"

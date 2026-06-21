@@ -20,16 +20,16 @@ google_analytics:
   gtag_id: XXXXX
 nav:
   地图:
-    link: my-gallery/location
+    link: /my-gallery/location
     icon: local-two
   随机:
-    link: my-gallery/random
+    link: /my-gallery/random
     icon: pic
   状态监控:
-    link: my-gallery/status
+    link: /my-gallery/status
     icon: list-view
   时间线:
-    link: my-gallery/grid-all
+    link: /my-gallery/grid-all
     icon: grid-nine
   # 归档:
   #   link: https://hollyhuihui.github.io/blog

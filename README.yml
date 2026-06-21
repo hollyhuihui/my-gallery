@@ -1,3 +1,11 @@
+Boston:
+  url: boston-june
+  date: "2026-06-21"
+  style: fullscreen
+  cover: boston-june/R0006049.webp
+  location:
+    - 42.3605645262698
+    - -71.05799300327145
 Crater Lake:
   url: CraterLake
   date: "2026-04-28"

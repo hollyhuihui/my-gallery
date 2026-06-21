@@ -1,15 +1,21 @@
-羊:
-  url: Nature
-  date: "2023-09-02"
+Boston:
+  url: boston-june
+  date: "2026-06-21"
   style: fullscreen
-  cover: Nature/16.webp
-颐和园:
-  url: Landscape
-  date: "2023-09-03"
+  cover: boston-june/R0006049.webp
+  location:
+    - 42.3605645262698
+    - -71.05799300327145
+Crater Lake:
+  url: CraterLake
+  date: "2026-04-28"
   style: fullscreen
-  cover: Landscape/17.webp
+  cover: CraterLake/R0005506.webp
+  location:
+    - 42.952104931021225
+    - -122.12794016618432
 多伦多:
   url: toronto-the-city
   date: "2025-10-01"
-  style: fullscreen
+  style: default
   cover: toronto-the-city/R0004488.webp

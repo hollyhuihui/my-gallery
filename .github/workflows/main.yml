@@ -19,46 +19,47 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: secrets
+    permissions:
+      contents: write
     steps:
     - name: Checkout template repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v7
       with:
         repository: ${{ env.TEMPLATE_REPO }}
-        ref: ${{ env.TEMPLATE_BRANCE }}        
+        ref: ${{ env.TEMPLATE_BRANCH }}
     - name: Checkout gallery repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v7
       with:
         path: gallery
     - name: Checkout public repo
-      uses: actions/checkout@v2
-      continue-on-error: true # allow error.      
+      uses: actions/checkout@v7
+      continue-on-error: true # allow error.
       with:
         ref: gh-pages
-        path: public        
+        path: public
     - name: Checkout thumbnail repo
-      uses: actions/checkout@v2
-      continue-on-error: true # allow error.      
+      uses: actions/checkout@v7
+      continue-on-error: true # allow error.
       with:
         ref: thumbnail
-        path: thumbnail_public        
+        path: thumbnail_public
     - name: Checkout theme repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v7
       with:
         repository: ${{ env.THEME_REPO }}
-        ref: ${{ env.THEME_BRANCH }}        
+        ref: ${{ env.THEME_BRANCH }}
         path: themes/hexo-theme-type
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v6
       with:
-        python-version: '3.10' 
-        cache: 'pip' # caching pip dependencies        
+        python-version: '3.10'
+        cache: 'pip' # caching pip dependencies
     - run: pip install -r requirements.txt
     - name: Generate Doc
       run: |
         echo $BASE_URL
         python build.py
         cat new_config.yml
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
         node-version: 20
         cache: 'npm'
@@ -67,21 +68,21 @@ jobs:
         npm ci
         npm install hexo-cli -g
         hexo g --config new_config.yml
-        ls ./public        
+        ls ./public
     - name: Deploy Thumbnail
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         publish_dir: ./thumbnail_public
         publish_branch: thumbnail
-        github_token: ${{ secrets.GH_PAGES_DEPLOY }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         user_name: ${{ env.GIT_USER }}
         user_email: ${{ env.GIT_EMAIL }}
-        commit_msg: ${{ github.event.head_commit.message }}          
+        commit_message: ${{ github.event.head_commit.message }}
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         publish_dir: ./public
-        github_token: ${{ secrets.GH_PAGES_DEPLOY }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         user_name: ${{ env.GIT_USER }}
         user_email: ${{ env.GIT_EMAIL }}
-        commit_msg: ${{ github.event.head_commit.message }}  
+        commit_message: ${{ github.event.head_commit.message }}

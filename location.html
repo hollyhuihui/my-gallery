@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/my-gallery/css/style.css">
@@ -112,10 +117,25 @@
   
 <link rel="stylesheet" href="/my-gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/my-gallery/css/material3.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/skins/classic.css">
+
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/skins/editorial.css">
 
   
   
@@ -128,12 +148,6 @@
     crossorigin=""></script>
   
   
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/my-gallery/css/highlight/github.css">
-
   
   
 
@@ -387,13 +401,7 @@
 
 
 
-<style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
-  }
-</style>
+
   <!-- Main Content -->
   <section class="pjax-area">
   <div class="content-area album-area">
@@ -543,8 +551,8 @@
       return id;
     }
     var album = getParam('album');
-    var album_data = JSON.parse(`{"Boston":{"url":"boston-june","date":"2026-06-21","style":"fullscreen","cover":"boston-june/R0006049.webp","location":[42.3605645262698,-71.05799300327145]},"Crater Lake":{"url":"CraterLake","date":"2026-04-28","style":"fullscreen","cover":"CraterLake/R0005506.webp","location":[42.952104931021225,-122.12794016618432]},"多伦多":{"url":"toronto-the-city","date":"2025-10-01","style":"default","cover":"toronto-the-city/R0004488.webp"}}`);
-    var single_data = JSON.parse(`{}`);
+    var album_data = JSON.parse(`{"Tahoe-Nov-26":{"url":"tahoe26nov-bearbear","date":"2026-11-16","style":"fullscreen","cover":"tahoe26nov-bearbear/R0007394.webp","location":[39.09908086470752,-120.03880236011905]},"Boston":{"url":"boston-june","date":"2026-06-21","style":"fullscreen","cover":"boston-june/R0006049.webp","location":[42.3605645262698,-71.05799300327145]},"Crater Lake":{"url":"CraterLake","date":"2026-04-28","style":"fullscreen","cover":"CraterLake/R0005506.webp","location":[42.952104931021225,-122.12794016618432]},"多伦多":{"url":"toronto-the-city","date":"2025-10-01","style":"default","cover":"toronto-the-city/R0004488.webp"}}`);
+    var single_data = JSON.parse(`{"tahoe26nov-bearbear/DSCF0860.webp":{"dir":"tahoe26nov-bearbear","location":[38.918976944444445,-120.01249333333334],"name":"DSCF0860","path":"tahoe26nov-bearbear/DSCF0860.webp","thum":"https://cdn.jsdelivr.net/gh/hollyhuihui/my-gallery@thumbnail//tahoe26nov-bearbear/DSCF0860.webp","url":"https://cdn.jsdelivr.net/gh/hollyhuihui/my-gallery@d48b9ff2fcdc691a2fa7fa3cafaf23a920364f5d/tahoe26nov-bearbear/DSCF0860.webp"},"tahoe26nov-bearbear/DSCF0867.webp":{"dir":"tahoe26nov-bearbear","location":[38.918976944444445,-120.01249333333334],"name":"DSCF0867","path":"tahoe26nov-bearbear/DSCF0867.webp","thum":"https://cdn.jsdelivr.net/gh/hollyhuihui/my-gallery@thumbnail//tahoe26nov-bearbear/DSCF0867.webp","url":"https://cdn.jsdelivr.net/gh/hollyhuihui/my-gallery@d48b9ff2fcdc691a2fa7fa3cafaf23a920364f5d/tahoe26nov-bearbear/DSCF0867.webp"},"tahoe26nov-bearbear/DSCF0873.webp":{"dir":"tahoe26nov-bearbear","location":[38.918976944444445,-120.01249333333334],"name":"DSCF0873","path":"tahoe26nov-bearbear/DSCF0873.webp","thum":"https://cdn.jsdelivr.net/gh/hollyhuihui/my-gallery@thumbnail//tahoe26nov-bearbear/DSCF0873.webp","url":"https://cdn.jsdelivr.net/gh/hollyhuihui/my-gallery@d48b9ff2fcdc691a2fa7fa3cafaf23a920364f5d/tahoe26nov-bearbear/DSCF0873.webp"}}`);
 
     var slogan = $("#slogan")[0];
     var map = L.map('map');
@@ -640,25 +648,12 @@
 <link rel="stylesheet" href="" />
 <script src="/my-gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/my-gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -690,6 +685,62 @@
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/my-gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {

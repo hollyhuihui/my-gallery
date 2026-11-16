@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/my-gallery/css/style.css">
@@ -112,21 +117,30 @@
   
 <link rel="stylesheet" href="/my-gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/my-gallery/css/material3.css">
 
   
   
   
-  
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/my-gallery/css/highlight/github.css">
+<link rel="stylesheet" href="/my-gallery/css/skins/classic.css">
 
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/my-gallery/css/skins/editorial.css">
+
+  
+  
+  
+  
   
   
 
@@ -380,16 +394,10 @@
 
 
 
-<style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
-  }
-</style>
+
   <!-- Main Content -->
   <script src="js/sql-wasm.js"></script>
-<script src="js/html2canvas.js"></script>
+<script src="js/html2canvas.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.31.2/src-min-noconflict/ace.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/ace-builds@1.31.2/css/ace.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -448,7 +456,7 @@ ORDER BY count DESC;
                 }
                 const a = document.createElement('a');
                 a.text = cell;
-                a.setAttribute('href', 'grid-all?maker=' + cell);
+                a.setAttribute('href', 'grid-all?maker=' + encodeURIComponent(String(cell).trim()));
                 return a;
             }, ...params.slice(1)],
         );
@@ -467,7 +475,7 @@ limit 10;
                 }
                 const a = document.createElement('a');
                 a.text = cell;
-                a.setAttribute('href', 'grid-all?lens_model=' + cell);
+                a.setAttribute('href', 'grid-all?lens_model=' + encodeURIComponent(String(cell).trim()));
                 return a;
             }, ...params.slice(1)],
         );
@@ -485,7 +493,7 @@ ORDER BY COUNT(*) DESC;
                 }
                 const a = document.createElement('a');
                 a.text = cell;
-                a.setAttribute('href', 'grid-all?country=' + cell);
+                a.setAttribute('href', 'grid-all?country=' + encodeURIComponent(String(cell).trim()));
                 return a;
             }, ...params.slice(1)],
         );
@@ -506,7 +514,7 @@ LIMIT 5;
                 }
                 const a = document.createElement('a');
                 a.text = cell;
-                a.setAttribute('href', 'grid-all?focal_length=' + cell);
+                a.setAttribute('href', 'grid-all?focal_length=' + encodeURIComponent(String(cell).trim()));
                 return a;
             }, ...params.slice(1)],
         );
@@ -550,12 +558,14 @@ LIMIT 5;
             margin: 0 auto;
         }
 
+        /* 这三处原本写死 #f0f0f0，把主题的暗色底盖掉了，所以 /status 在暗色下
+           仍是一整块浅灰。改走 token 后跟着 prefers-color-scheme 走。 */
         body {
-            background-color: #f0f0f0;
+            background-color: var(--surface-2);
         }
 
         #wrapper {
-            background-color: #f0f0f0;
+            background-color: var(--surface-2);
         }
 
         #table-wrapper {
@@ -567,8 +577,21 @@ LIMIT 5;
         #chart-wrapper {
             width: 100%;
             height: 100%;
-            background-color: #f0f0f0;
+            background-color: var(--surface-2);
             margin-top: 20px;
+        }
+
+        /* 每年一块热力图。给它 --hm-surface 这个底是修复的关键：
+           空格子是 #EBEDF0，原先直接落在 #f0f0f0 上，两者明度差不到 2%，
+           格子就整片糊掉了。GitHub 的这套配色成立的前提就是铺在纯白上。
+           只加 background / radius / shadow —— 不加 padding 或 border，
+           因为 echarts.init 按 clientWidth/clientHeight 定尺寸，内边距会让
+           画布尺寸和 JS 里设的 1200×250 对不上。 */
+        .status {
+            background-color: var(--hm-surface);
+            border-radius: var(--radius-lg, 16px);
+            box-shadow: var(--shadow-1);
+            margin-bottom: 24px;
         }
 
         .ln-table {
@@ -599,8 +622,8 @@ LIMIT 5;
             text-align: center;
             width: 100%;
             margin: 0 auto;
-            background-color: #ffffff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background-color: var(--surface-1);
+            box-shadow: var(--shadow-1);
             border-radius: 10px;
             padding: 20px;
         }
@@ -642,25 +665,12 @@ LIMIT 5;
 <link rel="stylesheet" href="" />
 <script src="/my-gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/my-gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -692,6 +702,62 @@ LIMIT 5;
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/my-gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {
